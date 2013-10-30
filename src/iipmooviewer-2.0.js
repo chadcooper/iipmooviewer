@@ -1127,6 +1127,7 @@ var IIPMooViewer = new Class({
       // Create our main view drag object for our canvas.
       // Add synchronization via the Drag complete hook as well as coordinate updating
       var coordsBind = this.updateCoords.bind(this);
+      var getCoordsBind = this.getCoords.bind(this);
       this.touch = new Drag( this.canvas, {
 	onStart: function(){
 	  _this.canvas.addClass('drag');
@@ -1146,8 +1147,9 @@ var IIPMooViewer = new Class({
     this.canvas.addEvents({
       'mousewheel:throttle(75)': this.zoom.bind(this),
       'dblclick': this.zoom.bind(this),
-      'mousedown': function(e){ var event = new DOMEvent(e); event.stop(); },
-      'mousemove:throttle(75)': coordsBind, // Throttle to avoid unnecessary updating
+      'mousedown': getCoordsBind,
+      //'mousedown': function(e){ var event = new DOMEvent(e); event.stop(); },
+      //'mousemove:throttle(75)': coordsBind, // Throttle to avoid unnecessary updating
       'mouseenter': function(){ if( _this.navigation && _this.navigation.coords ) _this.navigation.coords.fade(0.65); },
       'mouseleave': function(){ if( _this.navigation && _this.navigation.coords ) _this.navigation.coords.fade('out'); }
     });
@@ -1336,7 +1338,15 @@ var IIPMooViewer = new Class({
     var text = this.transformCoords( x/this.wid, y/this.hei );
     this.navigation.setCoords( text );
   },
-
+  
+  getCoords: function(e){
+  	if( !this.navigation || !this.navigation.coords ) return;
+    // Calculate position taking into account images smaller than our view
+    var x = e.page.x - this.containerPosition.x + this.view.x - ((this.wid<this.view.w) ? Math.round((this.view.w-this.wid)/2) : 0);
+    var y = e.page.y - this.containerPosition.y + this.view.y - ((this.hei<this.view.h) ? Math.round((this.view.h-this.hei)/2) : 0);
+    var text = this.transformCoords( x/this.wid, y/this.hei );
+    this.navigation.setCoords( text );
+  },
 
   /* Transform resolution independent coordinates to coordinate system
    */
