@@ -1131,12 +1131,12 @@ var IIPMooViewer = new Class({
       this.touch = new Drag( this.canvas, {
 	onStart: function(){
 	  _this.canvas.addClass('drag');
-	  _this.canvas.removeEvent('mousemove:throttle(75)',coordsBind);
+	  //_this.canvas.removeEvent('mousemove:throttle(75)',coordsBind);
         },
         onComplete: function(){
 	  _this.scroll();
 	  _this.canvas.removeClass('drag');
-	  _this.canvas.addEvent('mousemove:throttle(75)',coordsBind);
+	  //_this.canvas.addEvent('mousemove:throttle(75)',coordsBind);
 	}
       });
     }
