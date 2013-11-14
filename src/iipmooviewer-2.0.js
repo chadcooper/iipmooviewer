@@ -307,6 +307,9 @@ var IIPMooViewer = new Class({
     // Number of tiles is dependent on view width and height
     var xtiles = Math.ceil( this.wid / this.tileSize.h );
     var ytiles = Math.ceil( this.hei / this.tileSize.h );
+    
+    //console.log("xtiles: " + xtiles);
+    //console.log("ytiles: " + ytiles);
 
     if( endx >= xtiles ) endx = xtiles-1;
     if( endy >= ytiles ) endy = ytiles-1;
@@ -827,9 +830,14 @@ var IIPMooViewer = new Class({
     else if( event.shift ) z = -1;
     else z = 1;
 
+    console.log("z: " + z);
+    console.log("view.res: " + this.view.res);
+
     // Bail out if at zoom limits
     if( (z==1) && (this.view.res >= this.num_resolutions-1) ) return;
     if( (z==-1) && (this.view.res <= 0) ) return;
+
+	console.log("res: " + this.resolutions[this.view.res].w);
 
     if( event.target ){
       var pos, xmove, ymove;
@@ -917,7 +925,7 @@ var IIPMooViewer = new Class({
       }
       else{
 	xoffset = -this.view.w*(1-factor)/2;
-	yoffset = -this.view.h*(1-factor)/2;;
+	yoffset = -this.view.h*(1-factor)/2;
       }
 
       this.view.x = Math.round( factor*this.view.x + xoffset );
@@ -1341,11 +1349,26 @@ var IIPMooViewer = new Class({
   
   getCoords: function(e){
   	if( !this.navigation || !this.navigation.coords ) return;
+  	//if(this.view.res != 7) return;
     // Calculate position taking into account images smaller than our view
     var x = e.page.x - this.containerPosition.x + this.view.x - ((this.wid<this.view.w) ? Math.round((this.view.w-this.wid)/2) : 0);
     var y = e.page.y - this.containerPosition.y + this.view.y - ((this.hei<this.view.h) ? Math.round((this.view.h-this.hei)/2) : 0);
     var text = this.transformCoords( x/this.wid, y/this.hei );
-    this.navigation.setCoords( text );
+    // Set up event handler
+    var event = new DOMEvent(e);
+    // Stop all mousewheel events in order to prevent stray scrolling events
+    event.stop();
+    // Set z to +1 if zooming in and -1 if zooming out
+    var z = 1;
+    // For mouse scrolls
+    if( event.wheel && event.wheel < 0 ) z = -1;
+    // For double clicks
+    else if( event.shift ) z = -1;
+    else z = 1;
+    // Only print coords if user is zoomed in to max res
+    if( (z==1) && (this.view.res >= this.num_resolutions-1) ) {
+    	this.navigation.setCoords( text );
+    }
   },
 
   /* Transform resolution independent coordinates to coordinate system
