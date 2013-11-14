@@ -27,18 +27,20 @@ IIPMooViewer.implement({
 
   /* Create a new annotation, add it to our list and edit it
    */
-  newAnnotation: function(){
+  newAnnotation: function(e){
 
     // Create new ID for annotation
     var id = String.uniqueID();
+
+    console.log(e);
 
     // Create default annotation and insert into our annotation array
     var a = {
       id: id,
       x: (this.wid<this.view.w) ? 0.25 : (this.view.x+this.view.w/4)/this.wid,
       y: (this.hei<this.view.h) ? 0.25 : (this.view.y+this.view.h/4)/this.hei,
-      w: (this.wid<this.view.w) ? 0.5 : (this.view.w/(2*this.wid)),
-      h: (this.hei<this.view.h) ? 0.5 : (this.view.h/(2*this.hei)),
+      w: (this.wid<this.view.w) ? 0.25 : (this.view.w/(2*this.wid)),
+      h: (this.hei<this.view.h) ? 0.25 : (this.view.h/(2*this.hei)),
       category: '',
       title: '',
       text: ''

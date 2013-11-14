@@ -144,7 +144,7 @@ var IIPMooViewer = new Class({
 
 
     // Disable the right click context menu on image tiles?
-    this.disableContextMenu = true;
+    this.disableContextMenu = false;
 
     this.prefix = options.prefix || 'images/';
 
@@ -156,7 +156,7 @@ var IIPMooViewer = new Class({
       this.navigation = new Navigation({ showNavWindow:options.showNavWindow,
 					 showNavButtons: options.showNavButtons,
 					 navWinSize: options.navWinSize,
-				         showCoords: options.showCoords,
+				     showCoords: options.showCoords,
 					 prefix: this.prefix,
 					 navigation: options.navigation
 				       });
@@ -1366,9 +1366,9 @@ var IIPMooViewer = new Class({
     else if( event.shift ) z = -1;
     else z = 1;
     // Only print coords if user is zoomed in to max res
-    if( (z==1) && (this.view.res >= this.num_resolutions-1) ) {
-    	this.navigation.setCoords( text );
-    }
+    //if( (z==1) && (this.view.res >= this.num_resolutions-1) ) {
+    this.navigation.setCoords( text );
+    //}
   },
 
   /* Transform resolution independent coordinates to coordinate system
