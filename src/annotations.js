@@ -38,16 +38,16 @@ IIPMooViewer.implement({
     var _this = this;
 
     // Display / hide our annotations if we have any
-    this.canvas.addEvent('mouseenter', function() {
-      if (_this.annotationsVisible) {
-        _this.canvas.getElements('div.annotation').removeClass('hidden');
-      }
-    });
-    this.canvas.addEvent('mouseleave', function() {
-      if (_this.annotationsVisible) {
-        _this.canvas.getElements('div.annotation').addClass('hidden');
-      }
-    });
+    //this.canvas.addEvent('mouseenter', function() {
+      //if (_this.annotationsVisible) {
+        //_this.canvas.getElements('div.annotation').removeClass('hidden');
+      //}
+    //});
+    //this.canvas.addEvent('mouseleave', function() {
+      //if (_this.annotationsVisible) {
+        //_this.canvas.getElements('div.annotation').addClass('hidden');
+      //}
+    //});
   },
 
   /* Convert our annotation object into an array - we'll need this for sorting
@@ -81,9 +81,13 @@ IIPMooViewer.implement({
       var position = {
         left: Math.round(this.wid * annotation_item.x),
         top: Math.round(this.hei * annotation_item.y),
-        width: Math.round(this.wid * annotation_item.w),
-        height: Math.round(this.hei * annotation_item.h)
+        //width: Math.round(this.wid * annotation_item.w),
+        //height: Math.round(this.hei * annotation_item.h)
       };
+      
+      console.log(position);
+      console.log(this.wid);
+      console.log(this.hei);
 
       var annotation = $('annotation-' + annotation_item.id);
       if (annotation) {

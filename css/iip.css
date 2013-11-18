@@ -273,12 +273,15 @@
 /* Annotation styles
  */
 .iipmooviewer .canvas .annotation {
+  background-image:url('yellow_MarkerX.png');
+  width: 20px;
+  height: 34px;
   position: absolute;
   overflow: visible;
   z-index: 2;
-  border: 1px solid #888;
   background-color: transparent;
   visibility: visible;
+  
   opacity: 1;
   -webkit-transition: opacity 0.3s linear;
   -moz-transition: opacity 0.3s linear;
