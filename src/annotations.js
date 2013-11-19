@@ -77,17 +77,19 @@ IIPMooViewer.implement({
     // Now go through our sorted list and display those within the view
     for( ; i < l; i++ ){
       annotation_item = this.annotation_array[i];
-
-      var position = {
-        left: Math.round(this.wid * annotation_item.x),
-        top: Math.round(this.hei * annotation_item.y),
-        //width: Math.round(this.wid * annotation_item.w),
-        //height: Math.round(this.hei * annotation_item.h)
-      };
       
-      console.log(position);
-      console.log(this.wid);
-      console.log(this.hei);
+      lt = Math.round(this.wid * (annotation_item.x/66938));
+      tp = Math.round(this.hei * (annotation_item.y/20684));
+      // Subtract w/h of marker to make bottom of marker pin hit the 
+      //   x/y position right on the money
+      var position = {
+      	left: lt - 10,
+      	top: tp - 34
+      };
+
+      //console.log(position);
+      console.log(lt);
+      console.log(tp);
 
       var annotation = $('annotation-' + annotation_item.id);
       if (annotation) {

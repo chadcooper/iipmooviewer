@@ -78,8 +78,7 @@
     var server = '/fcgi-bin/iipsrv.fcgi';
     
     var annotations = {
-	100 : { x: 0.4, y: 0.4, w: 0, h: 0, category: "pigments", text: "test" },
-	2: { x: 0.1, y: 0.8, w: 0.2, h: 0.18, category: "pigments", text: "azurite" }
+	100 : { x: 26775, y: 8275, w: 0, h: 0, category: "pigments", text: "test" }
     };
 
     // The *full* image path on the server. This path does *not* need to be in the web
@@ -98,8 +97,6 @@
     });
     
     iipmooviewer.effects = true;
-
-    
     
     window.addEvent('keydown', function(e){
 		if (e.key == 'n') iipmooviewer.newAnnotation(e);

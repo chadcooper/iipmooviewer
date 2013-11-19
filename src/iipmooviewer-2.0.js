@@ -830,14 +830,14 @@ var IIPMooViewer = new Class({
     else if( event.shift ) z = -1;
     else z = 1;
 
-    console.log("z: " + z);
-    console.log("view.res: " + this.view.res);
+    //console.log("z: " + z);
+    //console.log("view.res: " + this.view.res);
 
     // Bail out if at zoom limits
     if( (z==1) && (this.view.res >= this.num_resolutions-1) ) return;
     if( (z==-1) && (this.view.res <= 0) ) return;
 
-	console.log("res: " + this.resolutions[this.view.res].w);
+	//console.log("res: " + this.resolutions[this.view.res].w);
 
     if( event.target ){
       var pos, xmove, ymove;

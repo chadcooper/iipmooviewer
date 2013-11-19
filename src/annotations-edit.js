@@ -32,7 +32,7 @@ IIPMooViewer.implement({
     // Create new ID for annotation
     var id = String.uniqueID();
 
-    console.log(e);
+    //console.log(e);
 
     // Create default annotation and insert into our annotation array
     var a = {
@@ -45,10 +45,14 @@ IIPMooViewer.implement({
       title: '',
       text: ''
     };
+    
+    //console.log(a);
 
     // Create an array if we don't have one and push a new annotation to it
     if( !this.annotations ) this.annotations = {};
     this.annotations[id] = a;
+    
+    //console.log(this.annotations);
 
     var _this = this;
 
@@ -57,12 +61,14 @@ IIPMooViewer.implement({
       'id': id,
       'class': 'annotation edit',
       'styles': {
-        left: Math.round( a.x * this.wid ),
-        top: Math.round( a.y * this.hei ),
-        width: Math.round(a.w * this.wid),
-        height: Math.round(a.h * this.hei)
+        left: Math.round(this.wid * (a.x/66938)), //Math.round( a.x * this.wid ),
+        top: Math.round(this.hei * (a.y/20684)) //Math.round( a.y * this.hei ),
+        //width: Math.round(a.w * this.wid),
+        //height: Math.round(a.h * this.hei)
       }
     }).inject( this.canvas );
+    
+    //console.log(annotation);
 
     this.editAnnotation( annotation );
 
@@ -79,10 +85,14 @@ IIPMooViewer.implement({
       this.annotationTip.hide();
       this.annotationTip.detach('div.annotation');
     }
+    
+    //console.log(annotation.get('id'))
 
     // Get our annotation ID
     var id = annotation.get('id').substr('annotation-'.length),
         annotation_item = this.annotations[id];
+        
+    //console.log(id);
 
     // Remove the edit class from other annotations divs and assign to this one
     this.canvas.getChildren('div.annotation.edit').removeClass('edit');
@@ -181,13 +191,13 @@ IIPMooViewer.implement({
       container: this.canvas
     });
 
-    var resizable = annotation.makeResizable({
-      handle: handle,
-      stopPropagation: true,
-      preventDefault: true,
+    //var resizable = annotation.makeResizable({
+      //handle: handle,
+      //stopPropagation: true,
+      //preventDefault: true,
       // Keep our form attached to the annotation
-      onDrag: function(){ form.setStyle('top', this.element.getSize().y ); }
-    });
+      //onDrag: function(){ form.setStyle('top', this.element.getSize().y ); }
+    //});
 
 
     // Set default focus on textarea
@@ -220,10 +230,12 @@ IIPMooViewer.implement({
 
     // Update our list entry
     var parent = el.getParent();
-    this.annotations[id].x = el.getPosition(parent).x / this.wid;
-    this.annotations[id].y = el.getPosition(parent).y / this.hei;
-    this.annotations[id].w = (el.getSize(parent).x-2) / this.wid;
-    this.annotations[id].h = (el.getSize(parent).y-2) / this.hei;
+    
+    this.annotations[id].x = 66938/el.getPosition(parent).x;
+    this.annotations[id].y = el.getPosition(parent).y;
+    console.log(el.getPosition(parent).x);
+    //this.annotations[id].w = (el.getSize(parent).x-2) / this.wid;
+    //this.annotations[id].h = (el.getSize(parent).y-2) / this.hei;
   },
 
 
